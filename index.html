@@ -5,128 +5,171 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>아살 사랑해</title>
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ee9ca7);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
-    font-family: 'Arial', sans-serif;
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ee9ca7);
+    background-size:400% 400%;
+    animation:bg 10s ease infinite;
+    font-family:sans-serif;
 }
 
-@keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+@keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
-.heart {
-    position: relative;
-    width: 40vw;
-    max-width: 220px;
-    height: 40vw;
-    max-height: 220px;
-    background: red;
-    transform: rotate(-45deg);
-    animation: beat 1s infinite;
-    z-index: 2;
+.heart{
+    position:relative;
+    width:220px;
+    height:220px;
+    background:red;
+    transform:rotate(-45deg);
+    animation:beat 1s infinite;
+    cursor:pointer;
 }
 
-.heart:before,
-.heart:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: red;
-    border-radius: 50%;
+.heart:before,.heart:after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    background:red;
+    border-radius:50%;
 }
 
-.heart:before { top: -50%; left: 0; }
-.heart:after { left: 50%; top: 0; }
+.heart:before{top:-110px;left:0;}
+.heart:after{left:110px;top:0;}
 
-.text {
-    position: absolute;
-    transform: rotate(45deg);
-    color: white;
-    font-size: 5vw;
-    max-font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-    top: 40%;
-    text-shadow: 0 0 10px white, 0 0 20px pink;
+@keyframes beat{
+    0%{transform:rotate(-45deg) scale(1);}
+    50%{transform:rotate(-45deg) scale(1.1);}
+    100%{transform:rotate(-45deg) scale(1);}
 }
 
-@keyframes beat {
-    0% { transform: rotate(-45deg) scale(1); }
-    50% { transform: rotate(-45deg) scale(1.1); }
-    100% { transform: rotate(-45deg) scale(1); }
+.text{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+    text-shadow:0 0 15px white,0 0 25px pink;
 }
 
-.falling-heart {
-    position: absolute;
-    color: red;
-    animation: fall linear infinite;
+/* 떨어지는 하트 */
+.falling{
+    position:absolute;
+    color:red;
+    animation:fall linear infinite;
+}
+@keyframes fall{
+    0%{transform:translateY(-10vh);opacity:1;}
+    100%{transform:translateY(110vh);opacity:0;}
 }
 
-@keyframes fall {
-    0% { transform: translateY(-10vh); opacity: 1; }
-    100% { transform: translateY(110vh); opacity: 0; }
+/* 팝업 */
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+    display:none;
+    text-align:center;
+    z-index:10;
 }
 
-.sparkle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 10px white, 0 0 20px pink;
-    animation: twinkle 2s infinite ease-in-out;
+.popup button{
+    margin-top:15px;
+    padding:8px 15px;
+    border:none;
+    background:#ff9a9e;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-@keyframes twinkle {
-    0%,100% { opacity: 0.2; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1.2); }
+/* 음악 버튼 */
+.music-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:white;
+    border:none;
+    border-radius:50px;
+    padding:10px 15px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 </style>
 </head>
 <body>
 
-<div class="heart">
+<div class="heart" onclick="openLetter()">
     <div class="text">아살 사랑해</div>
 </div>
 
-<iframe id="ytPlayer" width="0" height="0"
-src="https://www.youtube.com/embed/zAmuk5umOh4?autoplay=1&loop=1&playlist=zAmuk5umOh4"
-frameborder="0"
+<div class="popup" id="letter">
+    <h2>💌</h2>
+    <p>항상 네 편이고<br>진짜 많이 사랑해 🤍</p>
+    <button onclick="closeLetter()">닫기</button>
+</div>
+
+<button class="music-btn" onclick="playMusic()">🎵 음악</button>
+
+<iframe id="yt"
+width="0" height="0"
+src="https://www.youtube.com/embed/zAmuk5umOh4?enablejsapi=1&loop=1&playlist=zAmuk5umOh4"
 allow="autoplay">
 </iframe>
 
 <script>
-// 하트 떨어짐
-for (let i = 0; i < 30; i++) {
-    let heart = document.createElement("div");
-    heart.className = "falling-heart";
-    heart.innerHTML = "❤";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (15 + Math.random() * 20) + "px";
-    heart.style.animationDuration = (3 + Math.random() * 5) + "s";
-    document.body.appendChild(heart);
+// 떨어지는 하트
+for(let i=0;i<25;i++){
+    let h=document.createElement("div");
+    h.className="falling";
+    h.innerHTML="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*20)+"px";
+    h.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(h);
 }
 
-// 반짝이
-for (let i = 0; i < 40; i++) {
-    let sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    sparkle.style.top = Math.random() * 100 + "vh";
-    sparkle.style.left = Math.random() * 100 + "vw";
-    sparkle.style.animationDuration = (1 + Math.random() * 2) + "s";
-    document.body.appendChild(sparkle);
+// 편지 열기
+function openLetter(){
+    document.getElementById("letter").style.display="block";
+}
+
+function closeLetter(){
+    document.getElementById("letter").style.display="none";
+}
+
+// 유튜브 API
+let tag=document.createElement('script');
+tag.src="https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
+
+let player;
+function onYouTubeIframeAPIReady(){
+    player=new YT.Player('yt');
+}
+
+function playMusic(){
+    if(player){
+        player.playVideo();
+    }
 }
 </script>
 
