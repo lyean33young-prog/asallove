@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>아살 사랑해</title>
+
 <style>
 body{
     margin:0;
     height:100vh;
     overflow:hidden;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ee9ca7);
@@ -24,6 +26,7 @@ body{
     100%{background-position:0% 50%}
 }
 
+/* 하트 */
 .heart{
     position:relative;
     width:220px;
@@ -52,17 +55,19 @@ body{
     100%{transform:rotate(-45deg) scale(1);}
 }
 
-.text{
-    position:absolute;
-    width:100%;
-    text-align:center;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(45deg);
-    color:white;
-    font-size:28px;
+/* 하트 아래 글씨 */
+.love-text{
+    margin-top:40px;
+    font-size:32px;
     font-weight:bold;
+    color:white;
     text-shadow:0 0 15px white,0 0 25px pink;
+    animation:fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
 /* 떨어지는 하트 */
@@ -115,11 +120,12 @@ body{
 }
 </style>
 </head>
+
 <body>
 
-<div class="heart" onclick="openLetter()">
-    <div class="text">아살 사랑해</div>
-</div>
+<div class="heart" onclick="openLetter()"></div>
+
+<div class="love-text">아살 사랑해 🤍</div>
 
 <div class="popup" id="letter">
     <h2>💌</h2>
@@ -147,11 +153,10 @@ for(let i=0;i<25;i++){
     document.body.appendChild(h);
 }
 
-// 편지 열기
+// 편지
 function openLetter(){
     document.getElementById("letter").style.display="block";
 }
-
 function closeLetter(){
     document.getElementById("letter").style.display="none";
 }
@@ -165,11 +170,8 @@ let player;
 function onYouTubeIframeAPIReady(){
     player=new YT.Player('yt');
 }
-
 function playMusic(){
-    if(player){
-        player.playVideo();
-    }
+    if(player){ player.playVideo(); }
 }
 </script>
 
