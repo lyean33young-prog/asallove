@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,7 +27,6 @@ body{
     100%{background-position:0% 50%}
 }
 
-/* 하트 */
 .heart{
     position:relative;
     width:220px;
@@ -55,7 +55,6 @@ body{
     100%{transform:rotate(-45deg) scale(1);}
 }
 
-/* 하트 아래 글씨 */
 .love-text{
     margin-top:40px;
     font-size:32px;
@@ -70,7 +69,6 @@ body{
     to{opacity:1;transform:translateY(0);}
 }
 
-/* 떨어지는 하트 */
 .falling{
     position:absolute;
     color:red;
@@ -81,7 +79,6 @@ body{
     100%{transform:translateY(110vh);opacity:0;}
 }
 
-/* 팝업 */
 .popup{
     position:fixed;
     top:50%;
@@ -106,7 +103,6 @@ body{
     cursor:pointer;
 }
 
-/* 음악 버튼 */
 .music-btn{
     position:fixed;
     bottom:20px;
@@ -142,7 +138,6 @@ allow="autoplay">
 </iframe>
 
 <script>
-// 떨어지는 하트
 for(let i=0;i<25;i++){
     let h=document.createElement("div");
     h.className="falling";
@@ -153,7 +148,6 @@ for(let i=0;i<25;i++){
     document.body.appendChild(h);
 }
 
-// 편지
 function openLetter(){
     document.getElementById("letter").style.display="block";
 }
@@ -161,7 +155,6 @@ function closeLetter(){
     document.getElementById("letter").style.display="none";
 }
 
-// 유튜브 API
 let tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
